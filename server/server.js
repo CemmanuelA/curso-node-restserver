@@ -1,6 +1,8 @@
 require('./config/config');
 const express = require('express');
 const mongoose = require('mongoose');
+const path = require('path');
+
 
 const bodyParser = require('body-parser');
 const app = express();
@@ -11,10 +13,9 @@ app.use(bodyParser.json());
 // configuración de rutas
 app.use(require('./routes/index'));
 
-app.get('/', (req, res) => {
-    res.json('Hola mundo');
-});
 
+/* Habilitar carpeta public */
+app.use(express.static(path.resolve(__dirname , '../public')))
 
 
 mongoose.connect(process.env.URLDB,

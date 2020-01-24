@@ -61,7 +61,7 @@ app.post('/usuario', [verificarToken, verificarAdmin_role], (req, res) => {
     
 });
 
-app.put('/usuario/:id',verificarToken, (req, res) => {
+app.put('/usuario/:id',[verificarToken, verificarAdmin_role], (req, res) => {
         let id = req.params.id;
         let body = _.pick(req.body, [ 'nombre', 'email', 'img', 'role','estado']);
         Usuario.findByIdAndUpdate(id, body,{ new: true, runValidators: true }, (err, usuarioBD) =>{
@@ -79,7 +79,7 @@ app.put('/usuario/:id',verificarToken, (req, res) => {
         })
     });
 });
-app.delete('/usuario/:id',verificarToken, (req, res) => {
+app.delete('/usuario/:id',[verificarToken, verificarAdmin_role], (req, res) => {
     let id = req.params.id;
     Usuario.findByIdAndUpdate(id, { estado: false }, {new: true }, (err,usuarioBorrado) => {
         if (err) {
