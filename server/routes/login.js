@@ -70,6 +70,7 @@ async function verify( token ) {
 
 app.post('/google', async ( req, res) => {
     let token = req.body.idtoken;
+    console.log(token, 'token');
     let googleUser = await verify(token)
         .catch( e => {
             return res.status(403).json({
@@ -113,7 +114,7 @@ app.post('/google', async ( req, res) => {
             usuario.nombre = googleUser.nombre,
             usuario.email = googleUser.email,
             usuario.img = googleUser.img,
-            usuario.google = googleUser.true
+            usuario.google = googleUser.google
             usuario.password = ':)'
 
             usuario.save( (err,usuarioDB) => {
